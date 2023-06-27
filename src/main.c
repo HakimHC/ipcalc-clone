@@ -13,14 +13,15 @@
 /* You should have received a copy of the GNU General Public License */
 /* along with my-ipcalc.  If not, see <https://www.gnu.org/licenses/>. */
 
+#include <stdio.h>
+
 #include "ipcalc.h"
 
 int	main(int argc, char **argv)
 {
 	static struct arguments arguments;
 	parse(&arguments, argc, argv);
-
-	printf("%d\n", arguments.color);
-	printf("%d\n", arguments.nobinary);
+	if (!arguments.args[MASK])
+		arguments.args[MASK] = "255.255.0.0";
 	return 0;
 }

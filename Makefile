@@ -5,7 +5,7 @@ NAME 	= myipcalc
 CC 	= gcc
 
 # compiler flags
-# CFLAGS 	= -Wall -Wextra -Werror
+CFLAGS 	= -Wall -Wextra -Werror
 
 CFLAGS += -I $(INC)
 
@@ -16,6 +16,16 @@ INC 	= include
 
 # linker flags
 LDFLAGS = -fsanitize=address
+
+LDFLAGS += -L./libft -lft
+
+#libft
+
+LIBDIR 	= libft
+
+LIB 	= libft.a
+
+LIBFT 	= $(addprefix $(LIBDIR)/,$(LIB))
 
 # source files
 
@@ -32,10 +42,14 @@ OBJ 	= $(SRC:.c=.o)
 # rules
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
 
+$(LIBFT):
+	make -C libft
+
 clean:
+	make fclean -C libft
 	$(RM) $(OBJ)
 
 fclean: clean

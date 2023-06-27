@@ -28,6 +28,7 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state)
 			break;
 		case 'b':
 			args->nobinary = 1;
+			break;
 
 		case ARGP_KEY_ARG:
 			if (state->arg_num >= 2)
