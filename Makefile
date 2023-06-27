@@ -55,6 +55,7 @@ $(LIBFT):
 	make -C libft
 
 clean:
+	make fclean -C libft
 	$(RM) $(OBJ)
 
 fclean: clean
