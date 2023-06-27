@@ -14,21 +14,12 @@
 /* along with my-ipcalc.  If not, see <https://www.gnu.org/licenses/>. */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "ipcalc.h"
 
-int	main(int argc, char **argv)
+void	errmsg(const char *msg)
 {
-	static struct arguments arguments;
-	static struct ipmask 	ipmask[2];
-
-	parse(&arguments, argc, argv);
-	if (!arguments.args[MASK])
-		arguments.args[MASK] = MASK_DFL;
-	ipmask[IP].addr = arguments.args[IP];
-	ipmask[MASK].addr = arguments.args[MASK];
-	get_raw_bits(ipmask);
-	/* printf("%u\n", ipmask[IP].rawbits); */
-	/* printf("%u\n", ipmask[MASK].rawbits); */
-	return 0;
+	dprintf(2, "INVALID ADDRESS: %s\n", msg);
+	exit(1);
 }

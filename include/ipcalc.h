@@ -18,6 +18,8 @@
 
 # include <argp.h>
 
+# include "libft.h"
+
 /* Enumeration of the indexes of the arguments structure */
 enum idx_ipmask
 {
@@ -49,5 +51,8 @@ void	parse(struct arguments *arguments, int argc, char **argv);
 
 /* Argument validator */
 void	get_raw_bits(struct ipmask *ipmask);
+
+/* Error handling */
+void	errmsg(const char *msg);
 
 #endif

@@ -9,6 +9,8 @@ CFLAGS 	= -Wall -Wextra -Werror
 
 CFLAGS += -I $(INC)
 
+CFLAGS += -I $(LIBDIR)/inc
+
 CFLAGS += -g3
 
 # directory of header files
@@ -18,6 +20,8 @@ INC 	= include
 LDFLAGS = -fsanitize=address
 
 LDFLAGS += -L./libft -lft
+
+LDFLAGS += -lm
 
 #libft
 
@@ -33,7 +37,8 @@ SRCDIR 	= src
 
 SRCFILE = main.c \
 	  parser.c \
-	  get_values.c
+	  get_values.c \
+	  errors.c
 
 SRC 	= $(addprefix $(SRCDIR)/,$(SRCFILE))
 
@@ -50,7 +55,6 @@ $(LIBFT):
 	make -C libft
 
 clean:
-	make fclean -C libft
 	$(RM) $(OBJ)
 
 fclean: clean
