@@ -18,15 +18,23 @@
 
 # include <argp.h>
 
-# define IP 	0
-# define MASK 	1
+# define IP 		0
+# define MASK 		1
+# define MASK_DFL 	
 
 /* Used by main to communicate with parse_opt. */
 struct arguments
 {
-	char *args[2];
-	int color;
-	int nobinary;
+	char 		*args[2];
+	int 		color;
+	int 		nobinary;
+};
+
+/* Used to join the string of the address with the raw bits */
+struct ipmask
+{
+	char		*addr;
+	unsigned int 	rawbits;
 };
 
 /* Parser */

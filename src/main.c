@@ -20,8 +20,9 @@
 int	main(int argc, char **argv)
 {
 	static struct arguments arguments;
+
 	parse(&arguments, argc, argv);
 	if (!arguments.args[MASK])
-		arguments.args[MASK] = "255.255.0.0";
+		arguments.args[MASK] = "255.255.255.0";
 	return 0;
 }
