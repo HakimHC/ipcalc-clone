@@ -13,41 +13,12 @@
 /* You should have received a copy of the GNU General Public License */
 /* along with my-ipcalc.  If not, see <https://www.gnu.org/licenses/>. */
 
-#ifndef __IPCALC_H__
-# define __IPCALC_H__
+#include <string.h>
 
-# include <argp.h>
+#include "ipcalc.h"
 
-/* Enumeration of the indexes of the arguments structure */
-enum idx_ipmask
+void	get_raw_bits(struct ipmask *ipmask)
 {
-	IP,
-	MASK
-};
-
-/* Default values for the netmask */
-# define MASK_DFL 	"255.255.255.0"
-# define MASK_DFL_BITS 	4294967040
-
-/* Used by main to communicate with parse_opt. */
-struct arguments
-{
-	char 		*args[2];
-	int 		color;
-	int 		nobinary;
-};
-
-/* Used to join the string of the address with the raw bits */
-struct ipmask
-{
-	const char	*addr;
-	unsigned int 	rawbits;
-};
-
-/* Argument parser */
-void	parse(struct arguments *arguments, int argc, char **argv);
-
-/* Argument validator */
-void	get_raw_bits(struct ipmask *ipmask);
-
-#endif
+	if (!strcmp(ipmask[MASK].addr, MASK_DFL))
+		ipmask[MASK].rawbits = MASK_DFL_BITS;
+}

@@ -20,9 +20,15 @@
 int	main(int argc, char **argv)
 {
 	static struct arguments arguments;
+	static struct ipmask 	ipmask[2];
 
 	parse(&arguments, argc, argv);
 	if (!arguments.args[MASK])
-		arguments.args[MASK] = "255.255.255.0";
+		arguments.args[MASK] = MASK_DFL;
+	ipmask[IP].addr = arguments.args[IP];
+	ipmask[MASK].addr = arguments.args[MASK];
+	get_raw_bits(ipmask);
+	printf("%u\n", ipmask[IP].rawbits);
+	printf("%u\n", ipmask[MASK].rawbits);
 	return 0;
 }

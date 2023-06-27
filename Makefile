@@ -32,7 +32,8 @@ LIBFT 	= $(addprefix $(LIBDIR)/,$(LIB))
 SRCDIR 	= src
 
 SRCFILE = main.c \
-	  parser.c
+	  parser.c \
+	  get_values.c
 
 SRC 	= $(addprefix $(SRCDIR)/,$(SRCFILE))
 
