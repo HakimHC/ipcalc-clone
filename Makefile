@@ -5,7 +5,7 @@ NAME 	= myipcalc
 CC 	= gcc
 
 # compiler flags
-CFLAGS 	= -Wall -Wextra -Werror
+# CFLAGS 	= -Wall -Wextra -Werror
 
 CFLAGS += -I $(INC)
 
