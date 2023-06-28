@@ -28,16 +28,18 @@ static int get_exp(const char *addr)
 	return (pow(10, i - 1));
 }
 
-static unsigned int parse_bits(const char *addr)
+unsigned int parse_bits(const char *addr)
 {
 	int	i 		= 0;
 	int	j 		= 0;
 	unsigned int res 	= 0;
 	int	tmp		= 0;
 	int	shift 		= 24;
+	int	counter		= 0;
 
 	while (addr[i] && addr[i] != '/')
 	{
+		++counter;
 		j = 0;
 		int pos = get_exp(addr + i);
 		tmp = 0;
@@ -49,14 +51,23 @@ static unsigned int parse_bits(const char *addr)
 			pos /= 10;
 			j++;
 		}
-		printf("%d\n", tmp);
+		/* printf("%d\n", tmp); */
 		if (tmp > 255)
 			errmsg(addr);
+		res >>= shift;
+		res |= tmp;
+		res <<= shift;
+		shift -= 8;
 		if (!addr[i + j])
-			return 0;
+		{
+			if (counter != 4 || !isdigit(addr[i + j - 1]))
+				errmsg(addr);
+			return res;
+		}
 		i += j + 1;
 	}
-	(void) shift;
+	if (counter != 4 || !isdigit(addr[i + j - 1]))
+		errmsg(addr);
 	return res;
 }
 
@@ -64,5 +75,5 @@ void	get_raw_bits(struct ipmask *ipmask)
 {
 	if (!strcmp(ipmask[MASK].addr, MASK_DFL))
 		ipmask[MASK].rawbits = MASK_DFL_BITS;
-	parse_bits(ipmask[IP].addr);
+	ipmask[IP].rawbits = parse_bits(ipmask[IP].addr);
 }

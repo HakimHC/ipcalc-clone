@@ -18,8 +18,6 @@
 
 # include <argp.h>
 
-# include "libft.h"
-
 /* Enumeration of the indexes of the arguments structure */
 enum idx_ipmask
 {
@@ -54,5 +52,11 @@ void	get_raw_bits(struct ipmask *ipmask);
 
 /* Error handling */
 void	errmsg(const char *msg);
+
+/* Utilities for printing */
+void	print_line(struct ipmask ipmask, char *title);
+
+/* Utilities */
+struct ipmask get_wildcard(struct ipmask ipmask);
 
 #endif

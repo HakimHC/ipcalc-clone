@@ -14,22 +14,26 @@
 /* along with my-ipcalc.  If not, see <https://www.gnu.org/licenses/>. */
 
 #include <stdio.h>
+#include <unistd.h>
 
 #include "ipcalc.h"
 
-int	main(int argc, char **argv)
+static void print_bits(unsigned int n)
 {
-	static struct arguments arguments;
-	static struct ipmask 	ipmask[2];
+	for (int i = 31; i >= 0; i--)
+	{
+		if ((n >> i) & 1)
+			printf("1");
+		else
+		 	printf("0");
+		if (!(i % 8) && i)
+			printf(".");
+	}
+}
 
-	parse(&arguments, argc, argv);
-	if (!arguments.args[MASK])
-		arguments.args[MASK] = MASK_DFL;
-	ipmask[IP].addr = arguments.args[IP];
-	ipmask[MASK].addr = arguments.args[MASK];
-	get_raw_bits(ipmask);
-	print_line(ipmask[IP], "Address");
-	print_line(ipmask[MASK], "Netmask");
-	print_line(get_wildcard(ipmask[MASK]), "Wildcard");
-	return 0;
+void	print_line(struct ipmask ipmask, char *title)
+{
+	printf("%s:\t%s\t", title, ipmask.addr);
+	print_bits(ipmask.rawbits);
+	printf("\n");
 }

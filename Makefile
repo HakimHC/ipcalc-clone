@@ -31,32 +31,47 @@ LIB 	= libft.a
 
 LIBFT 	= $(addprefix $(LIBDIR)/,$(LIB))
 
+# static library for testing
+
+ARFLAGS = rcs
+
 # source files
 
 SRCDIR 	= src
 
-SRCFILE = main.c \
-	  parser.c \
+SRCFILE = parser.c \
 	  get_values.c \
-	  errors.c
+	  errors.c \
+	  print.c \
+	  utils.c
 
-SRC 	= $(addprefix $(SRCDIR)/,$(SRCFILE))
+SRC 	= $(addprefix $(SRCDIR)/,$(SRCFILE)) \
 
 # compiled object files
 OBJ 	= $(SRC:.c=.o)
 
+MAIN 	= main.c
+
+MAINSRC = $(addprefix $(SRCDIR)/,$(MAIN))
+
+MAINOBJ = $(MAINSRC:.c=.o)
+
 # rules
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
+$(NAME): $(OBJ) $(MAINOBJ) $(LIBFT)
+	$(CC) $(CFLAGS) $(OBJ) $(MAINOBJ) $(LDFLAGS) -o $(NAME)
 
 $(LIBFT):
-	make -C libft
+	make -sC libft
+
+test: $(OBJ)
+	$(AR) $(ARFLAGS) test.a $(OBJ)
 
 clean:
 	make fclean -C libft
 	$(RM) $(OBJ)
+	$(RM) test.a
 
 fclean: clean
 	$(RM) $(NAME)
