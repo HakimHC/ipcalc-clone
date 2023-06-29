@@ -25,7 +25,7 @@ and the following options:
 #### Compilation && Usage
 To build this project, it is enough to simply call ```make```.
 After finishing compilation, the program can be run with
-```./myipcalc```
+```./myipcalc [OPTIONS...] IP_ADDRESS [NETMASK]```
 and the object files may be cleaned with ```make clean``` or ```m̀ake fclean```.
 
 #### GNU GPLv3
