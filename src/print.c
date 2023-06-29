@@ -15,11 +15,34 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
+#include <stdlib.h>
 
 #include "ipcalc.h"
+#include "libft.h"
 
-static void print_bits(unsigned int n)
+static void printfcolor(const char *msg, const char *color)
 {
+	char	*tmp;
+	char	*aux;
+
+	if (!color)
+		return (void)printf("%s", msg);
+	tmp = strdup(msg);
+	aux = tmp;
+	tmp = ft_strjoin(color, tmp);
+	free(aux);
+	aux = tmp;
+	tmp = ft_strjoin(tmp, RESET);
+	free(aux);
+	printf("%s\t", tmp);
+	free(tmp);
+}
+
+static void print_bits(unsigned int n, char *color)
+{
+	if (color)
+		printf("%s", color);
 	for (int i = 31; i >= 0; i--)
 	{
 		if ((n >> i) & 1)
@@ -27,13 +50,31 @@ static void print_bits(unsigned int n)
 		else
 		 	printf("0");
 		if (!(i % 8) && i)
-			printf(".");
+		{
+			printf("%s.", RESET);
+			if (color)
+				printf("%s", color);
+		}
 	}
+	if (color)
+		printf("%s", RESET);
 }
 
 void	print_line(struct ipmask ipmask, char *title)
 {
-	printf("%s:\t%s\t", title, ipmask.addr);
-	print_bits(ipmask.rawbits);
+	char	*color;
+
+	color = NULL;
+	printfcolor(title, NULL);
+	if (arguments.color)
+		color = BLUE;
+	printf("\t");
+	printfcolor(ipmask.addr, color);
+	if (arguments.color)
+		!strncmp(title, "Netmask", 7) ? (color = RED) : (color = YELLOW);
+	else
+		color = NULL;
+	printf("\t");
+	print_bits(ipmask.rawbits, color);
 	printf("\n");
 }

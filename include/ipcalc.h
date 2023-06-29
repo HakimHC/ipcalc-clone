@@ -18,7 +18,7 @@
 
 # include <argp.h>
 
-/* Enumeration of the indexes of the arguments structure */
+/* Enumeration of the indexes of the arguments structure. */
 enum idx_ipmask
 {
 	IP,
@@ -37,12 +37,22 @@ struct arguments
 	int 		nobinary;
 };
 
-/* Used to join the string of the address with the raw bits */
+/* Used to join the string of the address with the raw bits. */
 struct ipmask
 {
 	const char	*addr;
 	unsigned int 	rawbits;
 };
+
+/* Define ANSI color codes. */
+
+#define YELLOW 	"\e[0;33m"
+#define BLUE	"\e[0;34m"
+#define RED	"\e[0;31m"
+#define RESET	"\e[0m"
+
+/* Global variable (arguments and options). */
+extern struct arguments arguments;
 
 /* Argument parser */
 void	parse(struct arguments *arguments, int argc, char **argv);

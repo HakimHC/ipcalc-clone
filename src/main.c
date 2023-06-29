@@ -17,9 +17,10 @@
 
 #include "ipcalc.h"
 
+struct arguments arguments;
+
 int	main(int argc, char **argv)
 {
-	static struct arguments arguments;
 	static struct ipmask 	ipmask[2];
 
 	parse(&arguments, argc, argv);
@@ -28,8 +29,8 @@ int	main(int argc, char **argv)
 	ipmask[IP].addr = arguments.args[IP];
 	ipmask[MASK].addr = arguments.args[MASK];
 	get_raw_bits(ipmask);
-	print_line(ipmask[IP], "Address");
-	print_line(ipmask[MASK], "Netmask");
-	print_line(get_wildcard(ipmask[MASK]), "Wildcard");
+	print_line(ipmask[IP], "Address: ");
+	print_line(ipmask[MASK], "Netmask: ");
+	print_line(get_wildcard(ipmask[MASK]), "Wildcard:");
 	return 0;
 }
