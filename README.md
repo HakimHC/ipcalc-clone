@@ -22,6 +22,12 @@ and the following options:
 * -?, --help:       Give a help list
 * --usage:          Give a short usage message
 
+#### Compilation && Usage
+To build this project, it is enough to simply call ```make```.
+After finishing compilation, the program can be run with
+```./myipcalc```
+and the object files may be cleaned with ```make clean``` or ```m̀ake fclean```.
+
 #### GNU GPLv3
 This repository is released under the GNU GPLv3 license. For more information, check out the LICENSE file.
 
